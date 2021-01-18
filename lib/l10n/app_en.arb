@@ -2,5 +2,13 @@
   "appName": "Splatoon Stats",
   "@appName": {
     "description": "The display name of this application."
-  }
+  },
+  "regularBattle": "Regular Battle",
+  "@regularBattle": {},
+  "rankedBattle": "Ranked Battle",
+  "@rankedBattle": {},
+  "leagueBattle": "League Battle",
+  "@leagueBattle": {},
+  "stages": "Stages",
+  "@stages": {}
 }

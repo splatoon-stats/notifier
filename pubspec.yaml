@@ -29,6 +29,7 @@ dependencies:
 
   # Application specific dependencies
   font_awesome_flutter: ^8.11.0
+  rainbow_color: ^0.1.1
 
 dev_dependencies:
   flutter_test:

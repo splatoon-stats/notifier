@@ -1,2 +1,6 @@
 {
+  "regularBattle": "レギュラーマッチ",
+  "rankedBattle": "ガチマッチ",
+  "leagueBattle": "リーグマッチ",
+  "stages": "ステージ"
 }
