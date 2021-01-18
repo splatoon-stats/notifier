@@ -1,19 +1,20 @@
-import 'package:flutter/material.dart';
+import 'package:notifier/ui/all.dart';
 
 void main() {
   runApp(MyApp());
 }
-
-const String _APP_NAME = 'Splatoon Stats';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _APP_NAME,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      onGenerateTitle: (BuildContext context) => context.S.appName,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: const MyHomePage(),
@@ -33,7 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(_APP_NAME),
+        title: Text(context.S.appName),
       ),
       body: Center(
         child: Column(

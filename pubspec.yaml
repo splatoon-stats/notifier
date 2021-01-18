@@ -23,6 +23,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.16.1
 
   # Application specific dependencies
   font_awesome_flutter: ^8.11.0
@@ -36,6 +39,9 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+
+  # Enable l10n code generation
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

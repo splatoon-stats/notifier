@@ -1,0 +1,6 @@
+{
+  "appName": "Splatoon Stats",
+  "@appName": {
+    "description": "The display name of this application."
+  }
+}
