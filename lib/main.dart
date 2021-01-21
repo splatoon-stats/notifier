@@ -8,6 +8,9 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
   Config.env = await loadEnv('assets/.env');
+
+  await database.setPersistenceEnabled(true);
+
   runApp(MyApp());
 }
 
