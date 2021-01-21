@@ -14,6 +14,7 @@
       "port": 15301
     },
     "database": {
+      "host": "0.0.0.0",
       "port": 19300
     },
     "pubsub": {
