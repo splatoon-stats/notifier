@@ -13,6 +13,10 @@ class Config {
   static bool get HIDE_DEBUG_LABEL => _boolField('HIDE_DEBUG_LABEL');
 
   // Values prefixed with `DEV_` should not be used for release.
+  static String get DEV_FIREBASE_DATABASE_URL {
+    return _stringField('DEV_FIREBASE_DATABASE_URL');
+  }
+
   static Locale get DEV_LOCALE {
     final String languageCode = _stringField('DEV_LOCALE');
     if (languageCode == null) {
