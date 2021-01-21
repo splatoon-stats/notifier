@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "236169183418",
+    "firebase_url": "https://splatoon-stats-notifier-default-rtdb.firebaseio.com",
+    "project_id": "splatoon-stats-notifier",
+    "storage_bucket": "splatoon-stats-notifier.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:236169183418:android:37075d97cadca251c60283",
+        "android_client_info": {
+          "package_name": "games.yuki.splatoon_stats_notifier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "236169183418-kgjk0mds68t19hpcqcehu25trn3bc5qb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "games.yuki.splatoon_stats_notifier",
+            "certificate_hash": "50e795f0b01dbd0d625b99b39088ab70ff005e9e"
+          }
+        },
+        {
+          "client_id": "236169183418-c0vo13jbcod7c6svohmb56i2c0rb3b9q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRV9GSiVZKVzUiwv9WFViQ21q42VceiyY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "236169183418-c0vo13jbcod7c6svohmb56i2c0rb3b9q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

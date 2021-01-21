@@ -1,6 +1,11 @@
+import 'package:notifier/firebase.dart';
 import 'package:notifier/ui/all.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
   runApp(MyApp());
 }
 
