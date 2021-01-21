@@ -1,11 +1,13 @@
+import 'package:notifier/config.dart';
 import 'package:notifier/firebase.dart';
 import 'package:notifier/ui/all.dart';
+import 'package:notifier/util/env_loader.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-
+  Config.env = await loadEnv('assets/.env');
   runApp(MyApp());
 }
 
