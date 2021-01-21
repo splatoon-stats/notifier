@@ -29,9 +29,10 @@ Future<Map<String, dynamic>> loadEnv(String envPath) async {
       continue;
     }
 
-    final List<String> pair = line.split('=');
-    final String key = pair[0];
-    final String value = pair[1];
+    // Split by first `=`
+    final int index = line.indexOf('=');
+    final String key = line.substring(0, index);
+    final String value = line.substring(index + 1);
 
     if (value == 'true' || value == 'false') {
       env[key] = value == 'true';
