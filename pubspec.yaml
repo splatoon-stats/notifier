@@ -33,12 +33,17 @@ dependencies:
   firebase_database: ^6.0.0
 
   # Application specific dependencies
+  built_value: ^7.1.0
   font_awesome_flutter: ^8.11.0
   rainbow_color: ^0.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # Application specific dependencies
+  build_runner: ^1.0.0 # Used by built_value
+  built_value_generator: ^7.0.0 # Used by built_value
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
