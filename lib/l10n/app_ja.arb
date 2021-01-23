@@ -2,5 +2,8 @@
   "regularBattle": "レギュラーマッチ",
   "rankedBattle": "ガチマッチ",
   "leagueBattle": "リーグマッチ",
-  "stages": "ステージ"
+  "schedules": "ステージ情報",
+  "stages": "ステージ",
+
+  "errorLoad": "{name}の読み込みに失敗しました。"
 }

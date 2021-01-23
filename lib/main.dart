@@ -39,30 +39,8 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
-  static const List<Color> _tabColors = <Color>[
-    AppColors.regularBattle,
-    AppColors.rankedBattle,
-    AppColors.leagueBattle,
-  ];
-
-  TabController _tabBarController;
-  Rainbow _rainbow;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _tabBarController = TabController(
-      length: 3,
-      vsync: this,
-    );
-
-    _rainbow = Rainbow(
-      spectrum: _tabColors,
-      rangeEnd: 2.0,
-    );
-  }
+class _MyHomePageState extends State<MyHomePage> {
+  final ValueNotifier<int> _bottomNavigationController = ValueNotifier<int>(0);
 
   @override
   Widget build(BuildContext context) {
@@ -70,63 +48,28 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       appBar: AppBar(
         title: Text(context.S.appName),
       ),
-      body: Column(
-        children: <Widget>[
-          const Padding(padding: EdgeInsets.only(top: 16.0)),
-          _buildTabBar(),
-          Expanded(
-            child: TabBarView(
-              controller: _tabBarController,
-              children: <Widget>[
-                Container(),
-                Container(),
-                Container(),
-              ],
-            ),
-          ),
-        ],
-      ),
+      body: SchedulesPage(),
       bottomNavigationBar: _buildBottomNavigationBar(context),
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar(BuildContext context) {
-    return BottomNavigationBar(
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          label: context.S.stages,
-          icon: const Icon(FontAwesomeIcons.clock),
-        ),
-        BottomNavigationBarItem(
-          label: context.S.leagueBattle,
-          icon: const Icon(FontAwesomeIcons.listOl),
-        ),
-      ],
-    );
-  }
-
-  AnimatedBuilder _buildTabBar() {
-    return AnimatedBuilder(
-      animation: _tabBarController.animation,
-      builder: (BuildContext context, _) {
-        return TabBar(
-          controller: _tabBarController,
-          labelPadding: EdgeInsets.zero,
-          indicator: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                width: 4.0,
-                color: _rainbow[_tabBarController.animation.value],
-              ),
-            ),
+  Widget _buildBottomNavigationBar(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: _bottomNavigationController,
+      builder: (BuildContext context, int i, _) => BottomNavigationBar(
+        onTap: (int value) => _bottomNavigationController.value = value,
+        currentIndex: i,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            label: context.S.stages,
+            icon: const Icon(FontAwesomeIcons.clock),
           ),
-          tabs: <Widget>[
-            Tab(text: context.S.regularBattle),
-            Tab(text: context.S.rankedBattle),
-            Tab(text: context.S.leagueBattle),
-          ],
-        );
-      },
+          BottomNavigationBarItem(
+            label: context.S.alarms,
+            icon: const Icon(Icons.alarm),
+          ),
+        ],
+      ),
     );
   }
 }

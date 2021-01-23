@@ -40,6 +40,25 @@ const getSplatnetAPIClient = (): AxiosInstance => {
 
 type StatusResponse = { ok: boolean };
 
+type Untranslated<T> = {
+  [P in keyof T]: T[P] extends (infer U)[]
+    ? Untranslated<U>[]
+    : T[P] extends Record<string, any>
+    ? Untranslated<Omit<T[P], 'name'>>
+    : T[P];
+};
+const removeTranslations = <T>(obj: T): Untranslated<T> => {
+  for (const key in obj) {
+    if (key === 'name') {
+      delete (obj as any).name;
+    } else if (typeof obj[key] === 'object') {
+      removeTranslations(obj[key]);
+    }
+  }
+
+  return (obj as unknown) as Untranslated<T>;
+};
+
 const fetchSchedules = async (
   _req: unknown,
   _context: CallableContext | null,
@@ -52,7 +71,8 @@ const fetchSchedules = async (
     date: dayjs(date).format('YYYY-MM-DD hh:mm:ss'),
   });
 
-  const { data: schedules } = await getSplatnetAPIClient().get<Schedules>('/schedules');
+  const { data: rawSchedules } = await getSplatnetAPIClient().get<Schedules>('/schedules');
+  const schedules = removeTranslations(rawSchedules);
 
   await database.ref('schedules').update(schedules);
 

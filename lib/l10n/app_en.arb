@@ -9,6 +9,16 @@
   "@rankedBattle": {},
   "leagueBattle": "League Battle",
   "@leagueBattle": {},
+  "schedules": "Stages data",
+  "@schedules": {},
   "stages": "Stages",
-  "@stages": {}
+  "@stages": {},
+  "errorLoad": "Failed to load {name}.",
+  "@errorLoad": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

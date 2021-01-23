@@ -13,3 +13,23 @@ extension BuildContextAppLocalizationsExtension on BuildContext {
     return theme.textTheme;
   }
 }
+
+extension IntersperseExtension<E> on List<E> {
+  List<E> intersperse(E filler) {
+    final List<E> result = <E>[];
+
+    for (final E element in this) {
+      result..add(element)..add(filler);
+    }
+
+    // Instead of taking length into consideration in iteration, just remove
+    // last element.
+    return result..removeLast();
+  }
+}
+
+extension IntersperseSpacingExtension<Widget> on List<Widget> {
+  List<Widget> intersperseSpacing(EdgeInsetsGeometry padding) {
+    return intersperse(Padding(padding: padding) as Widget);
+  }
+}
