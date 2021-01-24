@@ -29,8 +29,10 @@ dependencies:
 
   # Firebase dependencies
   firebase_analytics: ^7.0.1
+  firebase_auth: 0.20.0+1
   firebase_core: ^0.7.0
   firebase_database: ^6.0.0
+  firebase_messaging: ^8.0.0-dev.14
 
   # Application specific dependencies
   built_value: ^7.1.0

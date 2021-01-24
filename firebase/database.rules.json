@@ -3,6 +3,11 @@
   "rules": {
     ".read": false,
     ".write": false,
+    "fcmTokens": {
+      "$userId": {
+        ".write": "$userId === auth.uid"
+      }
+    },
     "schedules": {
       ".read": true
     }

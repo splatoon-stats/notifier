@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notifier/config.dart';
 import 'package:notifier/firebase.dart';
 import 'package:notifier/ui/all.dart';
@@ -9,7 +10,18 @@ Future<void> main() async {
   await Firebase.initializeApp();
   Config.env = await loadEnv('assets/.env');
 
-  await database.setPersistenceEnabled(true);
+  final Future<UserCredential> signInResult = auth.signInAnonymously();
+
+  Future<void> updateToken(String fcmToken) async {
+    final UserCredential credential = await signInResult;
+    await database
+        .reference()
+        .child('fcmTokens/${credential.user.uid}')
+        .update(<String, bool>{fcmToken: true});
+  }
+
+  messaging.getToken().then(updateToken);
+  messaging.onTokenRefresh.listen(updateToken);
 
   runApp(MyApp());
 }
