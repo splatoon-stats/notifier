@@ -26,6 +26,7 @@ module.exports = {
   rules: {
     camelcase: 'off',
     'import/no-unresolved': 'off',
+    'spaced-comment': 'off',
     '@typescript-eslint/no-floating-promises': 'error',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
