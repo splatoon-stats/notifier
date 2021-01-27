@@ -1,14 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:notifier/config.dart';
 import 'package:notifier/firebase.dart';
+import 'package:notifier/provider/all.dart';
 import 'package:notifier/ui/all.dart';
 import 'package:notifier/util/env_loader.dart';
+import 'package:provider/single_child_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
   Config.env = await loadEnv('assets/.env');
+
+  final UserProvider userProvider = UserProvider();
+
+  auth.userChanges().listen((User user) {
+    userProvider.user = user;
+  });
 
   final Future<UserCredential> signInResult = auth.signInAnonymously();
 
@@ -23,7 +30,14 @@ Future<void> main() async {
   messaging.getToken().then(updateToken);
   messaging.onTokenRefresh.listen(updateToken);
 
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: <SingleChildWidget>[
+        ChangeNotifierProvider<UserProvider>.value(value: userProvider),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -36,6 +50,13 @@ class MyApp extends StatelessWidget {
       onGenerateTitle: (BuildContext context) => context.S.appName,
       theme: ThemeData(
         brightness: Brightness.dark,
+        buttonTheme: const ButtonThemeData(
+          buttonColor: Colors.pink,
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.red,
+          foregroundColor: Colors.white,
+        ),
         primarySwatch: Colors.teal,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -53,6 +74,24 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final ValueNotifier<int> _bottomNavigationController = ValueNotifier<int>(0);
+  final PageController _pageController = PageController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _bottomNavigationController.addListener(() {
+      _pageController.jumpToPage(_bottomNavigationController.value);
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _bottomNavigationController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +99,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(context.S.appName),
       ),
-      body: SchedulesPage(),
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          SchedulesPage(),
+          AlarmsPage(),
+        ],
+      ),
       bottomNavigationBar: _buildBottomNavigationBar(context),
     );
   }

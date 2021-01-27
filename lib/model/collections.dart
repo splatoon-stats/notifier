@@ -19,7 +19,8 @@ abstract class Schedules implements Built<Schedules, SchedulesBuilder> {
   BuiltList<Schedule> get league;
 
   Map<String, dynamic> toJson() {
-    return serializers.serializeWith(Schedules.serializer, this) as Map<String, dynamic>;
+    return serializers.serializeWith(Schedules.serializer, this)
+        as Map<String, dynamic>;
   }
 
   static Schedules fromJson(Map<dynamic, dynamic> json) {
@@ -27,4 +28,26 @@ abstract class Schedules implements Built<Schedules, SchedulesBuilder> {
   }
 
   static Serializer<Schedules> get serializer => _$schedulesSerializer;
+}
+
+abstract class ScheduleAlarms
+    implements Built<ScheduleAlarms, ScheduleAlarmsBuilder> {
+  factory ScheduleAlarms([void Function(ScheduleAlarmsBuilder) updates]) =
+      _$ScheduleAlarms;
+
+  ScheduleAlarms._();
+
+  BuiltList<ScheduleAlarm> get alarms;
+
+  Map<String, dynamic> toJson() {
+    return serializers.serializeWith(ScheduleAlarms.serializer, this)
+        as Map<String, dynamic>;
+  }
+
+  static ScheduleAlarms fromJson(Map<dynamic, dynamic> json) {
+    return serializers.deserializeWith(ScheduleAlarms.serializer, json);
+  }
+
+  static Serializer<ScheduleAlarms> get serializer =>
+      _$scheduleAlarmsSerializer;
 }

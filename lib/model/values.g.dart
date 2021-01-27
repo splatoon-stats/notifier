@@ -8,6 +8,8 @@ part of values;
 
 Serializer<KeyedName> _$keyedNameSerializer = new _$KeyedNameSerializer();
 Serializer<Schedule> _$scheduleSerializer = new _$ScheduleSerializer();
+Serializer<ScheduleAlarm> _$scheduleAlarmSerializer =
+    new _$ScheduleAlarmSerializer();
 Serializer<Stage> _$stageSerializer = new _$StageSerializer();
 
 class _$KeyedNameSerializer implements StructuredSerializer<KeyedName> {
@@ -131,6 +133,55 @@ class _$ScheduleSerializer implements StructuredSerializer<Schedule> {
         case 'stage_b':
           result.stageB.replace(serializers.deserialize(value,
               specifiedType: const FullType(Stage)) as Stage);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$ScheduleAlarmSerializer implements StructuredSerializer<ScheduleAlarm> {
+  @override
+  final Iterable<Type> types = const [ScheduleAlarm, _$ScheduleAlarm];
+  @override
+  final String wireName = 'ScheduleAlarm';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, ScheduleAlarm object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'key',
+      serializers.serialize(object.key, specifiedType: const FullType(String)),
+    ];
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    return result;
+  }
+
+  @override
+  ScheduleAlarm deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ScheduleAlarmBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'key':
+          result.key = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
       }
     }
@@ -469,6 +520,92 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
       }
       rethrow;
     }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ScheduleAlarm extends ScheduleAlarm {
+  @override
+  final String key;
+  @override
+  final String name;
+
+  factory _$ScheduleAlarm([void Function(ScheduleAlarmBuilder) updates]) =>
+      (new ScheduleAlarmBuilder()..update(updates)).build();
+
+  _$ScheduleAlarm._({this.key, this.name}) : super._() {
+    if (key == null) {
+      throw new BuiltValueNullFieldError('ScheduleAlarm', 'key');
+    }
+  }
+
+  @override
+  ScheduleAlarm rebuild(void Function(ScheduleAlarmBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ScheduleAlarmBuilder toBuilder() => new ScheduleAlarmBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ScheduleAlarm && key == other.key && name == other.name;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc($jc(0, key.hashCode), name.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ScheduleAlarm')
+          ..add('key', key)
+          ..add('name', name))
+        .toString();
+  }
+}
+
+class ScheduleAlarmBuilder
+    implements Builder<ScheduleAlarm, ScheduleAlarmBuilder> {
+  _$ScheduleAlarm _$v;
+
+  String _key;
+  String get key => _$this._key;
+  set key(String key) => _$this._key = key;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
+  ScheduleAlarmBuilder();
+
+  ScheduleAlarmBuilder get _$this {
+    if (_$v != null) {
+      _key = _$v.key;
+      _name = _$v.name;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ScheduleAlarm other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ScheduleAlarm;
+  }
+
+  @override
+  void update(void Function(ScheduleAlarmBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ScheduleAlarm build() {
+    final _$result = _$v ?? new _$ScheduleAlarm._(key: key, name: name);
     replace(_$result);
     return _$result;
   }

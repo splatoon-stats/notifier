@@ -1,2 +1,2 @@
-export 'collections.dart' show Schedules;
-export 'values.dart' show Schedule, Stage;
+export 'collections.dart' show Schedules, ScheduleAlarms;
+export 'values.dart' show Schedule, ScheduleAlarm, Stage;

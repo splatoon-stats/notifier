@@ -13,10 +13,12 @@ part 'serializers.g.dart';
   // values.dart
   KeyedName,
   Schedule,
+  ScheduleAlarm,
   Stage,
 
   // collections.dart
   Schedules,
+  ScheduleAlarms,
 ])
 final Serializers _serializers = _$_serializers;
 

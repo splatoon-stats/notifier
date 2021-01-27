@@ -7,15 +7,21 @@ class SchedulesPage extends StatefulWidget {
   _SchedulesPageState createState() => _SchedulesPageState();
 }
 
-class _SchedulesPageState extends State<SchedulesPage> with SingleTickerProviderStateMixin {
+class _SchedulesPageState extends State<SchedulesPage>
+    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   static const List<Color> _tabColors = <Color>[
     AppColors.regularBattle,
     AppColors.rankedBattle,
     AppColors.leagueBattle,
   ];
 
-  final Stream<Schedules> _schedulesStream = database.reference().child('schedules').onValue.map<Schedules>((Event event) {
-    final Map<dynamic, dynamic> json = event.snapshot.value as Map<dynamic, dynamic>;
+  final Stream<Schedules> _schedulesStream = database
+      .reference()
+      .child('schedules')
+      .onValue
+      .map<Schedules>((Event event) {
+    final Map<dynamic, dynamic> json =
+        event.snapshot.value as Map<dynamic, dynamic>;
     return json == null ? null : Schedules.fromJson(json);
   });
 
@@ -38,7 +44,12 @@ class _SchedulesPageState extends State<SchedulesPage> with SingleTickerProvider
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return Column(
       children: <Widget>[
         _buildTabBar(),
@@ -58,8 +69,14 @@ class _SchedulesPageState extends State<SchedulesPage> with SingleTickerProvider
                 controller: _tabBarController,
                 children: <Widget>[
                   SchedulesWidget(schedules: allSchedules.regular.toList()),
-                  SchedulesWidget(schedules: allSchedules.gachi.toList(), isRanked: true),
-                  SchedulesWidget(schedules: allSchedules.league.toList(), isRanked: true),
+                  SchedulesWidget(
+                    schedules: allSchedules.gachi.toList(),
+                    isRanked: true,
+                  ),
+                  SchedulesWidget(
+                    schedules: allSchedules.league.toList(),
+                    isRanked: true,
+                  ),
                 ],
               );
             },
@@ -108,14 +125,12 @@ class SchedulesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 18.0),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
-          children: <Widget>[
-            for (final Schedule schedule in schedules) _buildSchedule(context, schedule),
-          ].intersperseSpacing(const EdgeInsets.only(top: 30.0)),
-        ),
+      padding: scrollableBodyPadding,
+      child: Column(
+        children: <Widget>[
+          for (final Schedule schedule in schedules)
+            _buildSchedule(context, schedule),
+        ].intersperseSpacing(const EdgeInsets.only(top: 30.0)),
       ),
     );
   }
@@ -134,7 +149,9 @@ class SchedulesWidget extends StatelessWidget {
             if (isRanked)
               Text(
                 schedule.rule.key,
-                style: context.textTheme.headline5.copyWith(fontSize: context.textTheme.headline5.fontSize * 0.8),
+                style: context.textTheme.headline5.copyWith(
+                  fontSize: context.textTheme.headline5.fontSize * 0.8,
+                ),
               ),
           ].intersperseSpacing(const EdgeInsets.only(left: 12.0)),
         ),

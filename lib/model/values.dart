@@ -8,9 +8,9 @@ import 'serializers.dart';
 part 'values.g.dart';
 
 abstract class KeyedName implements Built<KeyedName, KeyedNameBuilder> {
-  KeyedName._();
-
   factory KeyedName([void Function(KeyedNameBuilder) updates]) = _$KeyedName;
+
+  KeyedName._();
 
   @BuiltValueField(wireName: 'key')
   String get key;
@@ -19,7 +19,8 @@ abstract class KeyedName implements Built<KeyedName, KeyedNameBuilder> {
   String get name;
 
   Map<String, dynamic> toJson() {
-    return serializers.serializeWith(KeyedName.serializer, this) as Map<String, dynamic>;
+    return serializers.serializeWith(KeyedName.serializer, this)
+        as Map<String, dynamic>;
   }
 
   static KeyedName fromJson(Map<dynamic, dynamic> json) {
@@ -49,11 +50,14 @@ abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
   @BuiltValueField(wireName: 'stage_b')
   Stage get stageB;
 
-  DateTime get startTime => DateTime.fromMillisecondsSinceEpoch(startTimeRaw * 1000);
-  DateTime get endTime => DateTime.fromMillisecondsSinceEpoch(endTimeRaw * 1000);
+  DateTime get startTime =>
+      DateTime.fromMillisecondsSinceEpoch(startTimeRaw * 1000);
+  DateTime get endTime =>
+      DateTime.fromMillisecondsSinceEpoch(endTimeRaw * 1000);
 
   Map<String, dynamic> toJson() {
-    return serializers.serializeWith(Schedule.serializer, this) as Map<String, dynamic>;
+    return serializers.serializeWith(Schedule.serializer, this)
+        as Map<String, dynamic>;
   }
 
   static Schedule fromJson(Map<String, dynamic> json) {
@@ -61,6 +65,31 @@ abstract class Schedule implements Built<Schedule, ScheduleBuilder> {
   }
 
   static Serializer<Schedule> get serializer => _$scheduleSerializer;
+}
+
+abstract class ScheduleAlarm
+    implements Built<ScheduleAlarm, ScheduleAlarmBuilder> {
+  factory ScheduleAlarm([void Function(ScheduleAlarmBuilder) updates]) =
+      _$ScheduleAlarm;
+
+  ScheduleAlarm._();
+
+  @BuiltValueField(wireName: 'key')
+  String get key;
+  @nullable
+  @BuiltValueField(wireName: 'name')
+  String get name;
+
+  Map<String, dynamic> toJson() {
+    return serializers.serializeWith(ScheduleAlarm.serializer, this)
+        as Map<String, dynamic>;
+  }
+
+  static ScheduleAlarm fromJson(Map<dynamic, dynamic> json) {
+    return serializers.deserializeWith(ScheduleAlarm.serializer, json);
+  }
+
+  static Serializer<ScheduleAlarm> get serializer => _$scheduleAlarmSerializer;
 }
 
 abstract class Stage implements Built<Stage, StageBuilder> {
@@ -77,7 +106,8 @@ abstract class Stage implements Built<Stage, StageBuilder> {
   String get id;
 
   Map<String, dynamic> toJson() {
-    return serializers.serializeWith(Stage.serializer, this) as Map<String, dynamic>;
+    return serializers.serializeWith(Stage.serializer, this)
+        as Map<String, dynamic>;
   }
 
   static Stage fromJson(Map<String, dynamic> json) {

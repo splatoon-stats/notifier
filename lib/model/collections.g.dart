@@ -7,6 +7,8 @@ part of collections;
 // **************************************************************************
 
 Serializer<Schedules> _$schedulesSerializer = new _$SchedulesSerializer();
+Serializer<ScheduleAlarms> _$scheduleAlarmsSerializer =
+    new _$ScheduleAlarmsSerializer();
 
 class _$SchedulesSerializer implements StructuredSerializer<Schedules> {
   @override
@@ -62,6 +64,51 @@ class _$SchedulesSerializer implements StructuredSerializer<Schedules> {
           result.league.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(Schedule)]))
+              as BuiltList<Object>);
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$ScheduleAlarmsSerializer
+    implements StructuredSerializer<ScheduleAlarms> {
+  @override
+  final Iterable<Type> types = const [ScheduleAlarms, _$ScheduleAlarms];
+  @override
+  final String wireName = 'ScheduleAlarms';
+
+  @override
+  Iterable<Object> serialize(Serializers serializers, ScheduleAlarms object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'alarms',
+      serializers.serialize(object.alarms,
+          specifiedType:
+              const FullType(BuiltList, const [const FullType(ScheduleAlarm)])),
+    ];
+
+    return result;
+  }
+
+  @override
+  ScheduleAlarms deserialize(
+      Serializers serializers, Iterable<Object> serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ScheduleAlarmsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'alarms':
+          result.alarms.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(ScheduleAlarm)]))
               as BuiltList<Object>);
           break;
       }
@@ -190,6 +237,99 @@ class SchedulesBuilder implements Builder<Schedules, SchedulesBuilder> {
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'Schedules', _$failedField, e.toString());
+      }
+      rethrow;
+    }
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$ScheduleAlarms extends ScheduleAlarms {
+  @override
+  final BuiltList<ScheduleAlarm> alarms;
+
+  factory _$ScheduleAlarms([void Function(ScheduleAlarmsBuilder) updates]) =>
+      (new ScheduleAlarmsBuilder()..update(updates)).build();
+
+  _$ScheduleAlarms._({this.alarms}) : super._() {
+    if (alarms == null) {
+      throw new BuiltValueNullFieldError('ScheduleAlarms', 'alarms');
+    }
+  }
+
+  @override
+  ScheduleAlarms rebuild(void Function(ScheduleAlarmsBuilder) updates) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  ScheduleAlarmsBuilder toBuilder() =>
+      new ScheduleAlarmsBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is ScheduleAlarms && alarms == other.alarms;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(0, alarms.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('ScheduleAlarms')
+          ..add('alarms', alarms))
+        .toString();
+  }
+}
+
+class ScheduleAlarmsBuilder
+    implements Builder<ScheduleAlarms, ScheduleAlarmsBuilder> {
+  _$ScheduleAlarms _$v;
+
+  ListBuilder<ScheduleAlarm> _alarms;
+  ListBuilder<ScheduleAlarm> get alarms =>
+      _$this._alarms ??= new ListBuilder<ScheduleAlarm>();
+  set alarms(ListBuilder<ScheduleAlarm> alarms) => _$this._alarms = alarms;
+
+  ScheduleAlarmsBuilder();
+
+  ScheduleAlarmsBuilder get _$this {
+    if (_$v != null) {
+      _alarms = _$v.alarms?.toBuilder();
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(ScheduleAlarms other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$ScheduleAlarms;
+  }
+
+  @override
+  void update(void Function(ScheduleAlarmsBuilder) updates) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$ScheduleAlarms build() {
+    _$ScheduleAlarms _$result;
+    try {
+      _$result = _$v ?? new _$ScheduleAlarms._(alarms: alarms.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'alarms';
+        alarms.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'ScheduleAlarms', _$failedField, e.toString());
       }
       rethrow;
     }

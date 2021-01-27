@@ -3,6 +3,10 @@
   "@appName": {
     "description": "The display name of this application."
   },
+
+  "alarms": "Alerms",
+  "@alarms": {},
+
   "regularBattle": "Regular Battle",
   "@regularBattle": {},
   "rankedBattle": "Ranked Battle",
@@ -13,6 +17,7 @@
   "@schedules": {},
   "stages": "Stages",
   "@stages": {},
+
   "errorLoad": "Failed to load {name}.",
   "@errorLoad": {
     "placeholders": {
