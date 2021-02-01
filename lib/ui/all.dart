@@ -7,6 +7,8 @@ export 'package:rainbow_color/rainbow_color.dart';
 
 export 'colors.dart';
 export 'constants.dart';
+export 'dialog_extension.dart';
 export 'flutter_extension.dart';
+export 'l10n-helper.dart';
 export 'page/all.dart';
 export 'widget/all.dart';

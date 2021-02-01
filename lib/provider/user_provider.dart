@@ -9,4 +9,8 @@ class UserProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+  String get uid {
+    return user?.uid;
+  }
 }

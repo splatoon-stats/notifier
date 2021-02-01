@@ -1,7 +1,9 @@
 library values;
 
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:notifier/model/enums.dart';
 
 import 'serializers.dart';
 
@@ -74,11 +76,13 @@ abstract class ScheduleAlarm
 
   ScheduleAlarm._();
 
-  @BuiltValueField(wireName: 'key')
-  String get key;
-  @nullable
-  @BuiltValueField(wireName: 'name')
-  String get name;
+  BuiltSet<GameMode> get modes;
+  BuiltSet<GameRule> get rules;
+  @BuiltValueField(wireName: 'stages')
+  BuiltSet<int> get stagesRaw;
+  BuiltSet<int> get timings;
+
+  List<int> get stages => stagesRaw.toList()..sort();
 
   Map<String, dynamic> toJson() {
     return serializers.serializeWith(ScheduleAlarm.serializer, this)
@@ -103,7 +107,9 @@ abstract class Stage implements Built<Stage, StageBuilder> {
   @BuiltValueField(wireName: 'image')
   String get image;
   @BuiltValueField(wireName: 'id')
-  String get id;
+  String get idStr;
+
+  int get id => int.parse(idStr);
 
   Map<String, dynamic> toJson() {
     return serializers.serializeWith(Stage.serializer, this)

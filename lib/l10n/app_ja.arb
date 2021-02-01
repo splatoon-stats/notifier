@@ -1,11 +1,31 @@
 {
+  "alarm": "アラーム",
   "alarms": "アラーム",
+  "nHourBefore": "{hour, other{{hour}時間前}}",
+  "nMinuteBefore": "{minute, other{{minute}分前}}",
+  "notificationTimings": "通知時間",
+  "schedules": "ステージ情報",
+  "toClose": "閉じる",
+  "toSave": "保存",
+  "toSelectAll": "すべて選択する",
+  "toUnselectAll": "すべての選択を解除する",
 
+  "titleCreateAlarm": "アラーム追加",
+
+  "modes": "モード",
   "regularBattle": "レギュラーマッチ",
   "rankedBattle": "ガチマッチ",
   "leagueBattle": "リーグマッチ",
-  "schedules": "ステージ情報",
+
+  "rules": "ルール",
+  "splatZones": "ガチエリア",
+  "towerControl": "ガチヤグラ",
+  "rainmaker": "ガチホコバトル",
+  "clamBlitz": "ガチアサリ",
+
   "stages": "ステージ",
 
-  "errorLoad": "{name}の読み込みに失敗しました。"
+  "error": "エラー",
+  "errorLoad": "{name}の読み込みに失敗しました。",
+  "errorSave": "{name}を保存できませんでした。"
 }

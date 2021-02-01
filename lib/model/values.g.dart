@@ -151,15 +151,22 @@ class _$ScheduleAlarmSerializer implements StructuredSerializer<ScheduleAlarm> {
   Iterable<Object> serialize(Serializers serializers, ScheduleAlarm object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'key',
-      serializers.serialize(object.key, specifiedType: const FullType(String)),
+      'modes',
+      serializers.serialize(object.modes,
+          specifiedType:
+              const FullType(BuiltSet, const [const FullType(GameMode)])),
+      'rules',
+      serializers.serialize(object.rules,
+          specifiedType:
+              const FullType(BuiltSet, const [const FullType(GameRule)])),
+      'stages',
+      serializers.serialize(object.stagesRaw,
+          specifiedType: const FullType(BuiltSet, const [const FullType(int)])),
+      'timings',
+      serializers.serialize(object.timings,
+          specifiedType: const FullType(BuiltSet, const [const FullType(int)])),
     ];
-    if (object.name != null) {
-      result
-        ..add('name')
-        ..add(serializers.serialize(object.name,
-            specifiedType: const FullType(String)));
-    }
+
     return result;
   }
 
@@ -175,13 +182,29 @@ class _$ScheduleAlarmSerializer implements StructuredSerializer<ScheduleAlarm> {
       iterator.moveNext();
       final dynamic value = iterator.current;
       switch (key) {
-        case 'key':
-          result.key = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'modes':
+          result.modes.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltSet, const [const FullType(GameMode)]))
+              as BuiltSet<Object>);
           break;
-        case 'name':
-          result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'rules':
+          result.rules.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltSet, const [const FullType(GameRule)]))
+              as BuiltSet<Object>);
+          break;
+        case 'stages':
+          result.stagesRaw.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltSet, const [const FullType(int)]))
+              as BuiltSet<Object>);
+          break;
+        case 'timings':
+          result.timings.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltSet, const [const FullType(int)]))
+              as BuiltSet<Object>);
           break;
       }
     }
@@ -204,7 +227,8 @@ class _$StageSerializer implements StructuredSerializer<Stage> {
       serializers.serialize(object.image,
           specifiedType: const FullType(String)),
       'id',
-      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      serializers.serialize(object.idStr,
+          specifiedType: const FullType(String)),
     ];
     if (object.name != null) {
       result
@@ -235,7 +259,7 @@ class _$StageSerializer implements StructuredSerializer<Stage> {
               specifiedType: const FullType(String)) as String;
           break;
         case 'id':
-          result.id = serializers.deserialize(value,
+          result.idStr = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
       }
@@ -527,16 +551,30 @@ class ScheduleBuilder implements Builder<Schedule, ScheduleBuilder> {
 
 class _$ScheduleAlarm extends ScheduleAlarm {
   @override
-  final String key;
+  final BuiltSet<GameMode> modes;
   @override
-  final String name;
+  final BuiltSet<GameRule> rules;
+  @override
+  final BuiltSet<int> stagesRaw;
+  @override
+  final BuiltSet<int> timings;
 
   factory _$ScheduleAlarm([void Function(ScheduleAlarmBuilder) updates]) =>
       (new ScheduleAlarmBuilder()..update(updates)).build();
 
-  _$ScheduleAlarm._({this.key, this.name}) : super._() {
-    if (key == null) {
-      throw new BuiltValueNullFieldError('ScheduleAlarm', 'key');
+  _$ScheduleAlarm._({this.modes, this.rules, this.stagesRaw, this.timings})
+      : super._() {
+    if (modes == null) {
+      throw new BuiltValueNullFieldError('ScheduleAlarm', 'modes');
+    }
+    if (rules == null) {
+      throw new BuiltValueNullFieldError('ScheduleAlarm', 'rules');
+    }
+    if (stagesRaw == null) {
+      throw new BuiltValueNullFieldError('ScheduleAlarm', 'stagesRaw');
+    }
+    if (timings == null) {
+      throw new BuiltValueNullFieldError('ScheduleAlarm', 'timings');
     }
   }
 
@@ -550,19 +588,27 @@ class _$ScheduleAlarm extends ScheduleAlarm {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ScheduleAlarm && key == other.key && name == other.name;
+    return other is ScheduleAlarm &&
+        modes == other.modes &&
+        rules == other.rules &&
+        stagesRaw == other.stagesRaw &&
+        timings == other.timings;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, key.hashCode), name.hashCode));
+    return $jf($jc(
+        $jc($jc($jc(0, modes.hashCode), rules.hashCode), stagesRaw.hashCode),
+        timings.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('ScheduleAlarm')
-          ..add('key', key)
-          ..add('name', name))
+          ..add('modes', modes)
+          ..add('rules', rules)
+          ..add('stagesRaw', stagesRaw)
+          ..add('timings', timings))
         .toString();
   }
 }
@@ -571,20 +617,32 @@ class ScheduleAlarmBuilder
     implements Builder<ScheduleAlarm, ScheduleAlarmBuilder> {
   _$ScheduleAlarm _$v;
 
-  String _key;
-  String get key => _$this._key;
-  set key(String key) => _$this._key = key;
+  SetBuilder<GameMode> _modes;
+  SetBuilder<GameMode> get modes =>
+      _$this._modes ??= new SetBuilder<GameMode>();
+  set modes(SetBuilder<GameMode> modes) => _$this._modes = modes;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  SetBuilder<GameRule> _rules;
+  SetBuilder<GameRule> get rules =>
+      _$this._rules ??= new SetBuilder<GameRule>();
+  set rules(SetBuilder<GameRule> rules) => _$this._rules = rules;
+
+  SetBuilder<int> _stagesRaw;
+  SetBuilder<int> get stagesRaw => _$this._stagesRaw ??= new SetBuilder<int>();
+  set stagesRaw(SetBuilder<int> stagesRaw) => _$this._stagesRaw = stagesRaw;
+
+  SetBuilder<int> _timings;
+  SetBuilder<int> get timings => _$this._timings ??= new SetBuilder<int>();
+  set timings(SetBuilder<int> timings) => _$this._timings = timings;
 
   ScheduleAlarmBuilder();
 
   ScheduleAlarmBuilder get _$this {
     if (_$v != null) {
-      _key = _$v.key;
-      _name = _$v.name;
+      _modes = _$v.modes?.toBuilder();
+      _rules = _$v.rules?.toBuilder();
+      _stagesRaw = _$v.stagesRaw?.toBuilder();
+      _timings = _$v.timings?.toBuilder();
       _$v = null;
     }
     return this;
@@ -605,7 +663,31 @@ class ScheduleAlarmBuilder
 
   @override
   _$ScheduleAlarm build() {
-    final _$result = _$v ?? new _$ScheduleAlarm._(key: key, name: name);
+    _$ScheduleAlarm _$result;
+    try {
+      _$result = _$v ??
+          new _$ScheduleAlarm._(
+              modes: modes.build(),
+              rules: rules.build(),
+              stagesRaw: stagesRaw.build(),
+              timings: timings.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'modes';
+        modes.build();
+        _$failedField = 'rules';
+        rules.build();
+        _$failedField = 'stagesRaw';
+        stagesRaw.build();
+        _$failedField = 'timings';
+        timings.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'ScheduleAlarm', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
@@ -617,17 +699,17 @@ class _$Stage extends Stage {
   @override
   final String image;
   @override
-  final String id;
+  final String idStr;
 
   factory _$Stage([void Function(StageBuilder) updates]) =>
       (new StageBuilder()..update(updates)).build();
 
-  _$Stage._({this.name, this.image, this.id}) : super._() {
+  _$Stage._({this.name, this.image, this.idStr}) : super._() {
     if (image == null) {
       throw new BuiltValueNullFieldError('Stage', 'image');
     }
-    if (id == null) {
-      throw new BuiltValueNullFieldError('Stage', 'id');
+    if (idStr == null) {
+      throw new BuiltValueNullFieldError('Stage', 'idStr');
     }
   }
 
@@ -644,12 +726,12 @@ class _$Stage extends Stage {
     return other is Stage &&
         name == other.name &&
         image == other.image &&
-        id == other.id;
+        idStr == other.idStr;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, name.hashCode), image.hashCode), id.hashCode));
+    return $jf($jc($jc($jc(0, name.hashCode), image.hashCode), idStr.hashCode));
   }
 
   @override
@@ -657,7 +739,7 @@ class _$Stage extends Stage {
     return (newBuiltValueToStringHelper('Stage')
           ..add('name', name)
           ..add('image', image)
-          ..add('id', id))
+          ..add('idStr', idStr))
         .toString();
   }
 }
@@ -673,9 +755,9 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
   String get image => _$this._image;
   set image(String image) => _$this._image = image;
 
-  String _id;
-  String get id => _$this._id;
-  set id(String id) => _$this._id = id;
+  String _idStr;
+  String get idStr => _$this._idStr;
+  set idStr(String idStr) => _$this._idStr = idStr;
 
   StageBuilder();
 
@@ -683,7 +765,7 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
     if (_$v != null) {
       _name = _$v.name;
       _image = _$v.image;
-      _id = _$v.id;
+      _idStr = _$v.idStr;
       _$v = null;
     }
     return this;
@@ -704,7 +786,8 @@ class StageBuilder implements Builder<Stage, StageBuilder> {
 
   @override
   _$Stage build() {
-    final _$result = _$v ?? new _$Stage._(name: name, image: image, id: id);
+    final _$result =
+        _$v ?? new _$Stage._(name: name, image: image, idStr: idStr);
     replace(_$result);
     return _$result;
   }

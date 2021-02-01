@@ -12,6 +12,13 @@ extension BuildContextAppLocalizationsExtension on BuildContext {
   TextTheme get textTheme {
     return theme.textTheme;
   }
+
+  Future<T> push<T>(WidgetBuilder routeBuilder) {
+    return Navigator.push<T>(
+      this,
+      MaterialPageRoute<T>(builder: routeBuilder),
+    );
+  }
 }
 
 extension IntersperseExtension<E> on List<E> {
@@ -25,6 +32,16 @@ extension IntersperseExtension<E> on List<E> {
     // Instead of taking length into consideration in iteration, just remove
     // last element.
     return result..removeLast();
+  }
+}
+
+extension SetExtension<E> on Set<E> {
+  void toggle(E value) {
+    if (contains(value)) {
+      remove(value);
+    } else {
+      add(value);
+    }
   }
 }
 

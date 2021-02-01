@@ -14,6 +14,7 @@ class SplatoonImage extends StatelessWidget {
   }
 }
 
+const double STAGE_IMAGE_ASPECT_RATIO = 640 / 360;
 class StageImage extends StatelessWidget {
   const StageImage(this.path);
 
@@ -22,7 +23,7 @@ class StageImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 640 / 360,
+      aspectRatio: STAGE_IMAGE_ASPECT_RATIO,
       child: SplatoonImage(path),
     );
   }

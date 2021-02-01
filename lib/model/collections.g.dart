@@ -86,8 +86,8 @@ class _$ScheduleAlarmsSerializer
     final result = <Object>[
       'alarms',
       serializers.serialize(object.alarms,
-          specifiedType:
-              const FullType(BuiltList, const [const FullType(ScheduleAlarm)])),
+          specifiedType: const FullType(BuiltMap,
+              const [const FullType(String), const FullType(ScheduleAlarm)])),
     ];
 
     return result;
@@ -107,9 +107,10 @@ class _$ScheduleAlarmsSerializer
       switch (key) {
         case 'alarms':
           result.alarms.replace(serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      BuiltList, const [const FullType(ScheduleAlarm)]))
-              as BuiltList<Object>);
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(ScheduleAlarm)
+              ])));
           break;
       }
     }
@@ -247,7 +248,7 @@ class SchedulesBuilder implements Builder<Schedules, SchedulesBuilder> {
 
 class _$ScheduleAlarms extends ScheduleAlarms {
   @override
-  final BuiltList<ScheduleAlarm> alarms;
+  final BuiltMap<String, ScheduleAlarm> alarms;
 
   factory _$ScheduleAlarms([void Function(ScheduleAlarmsBuilder) updates]) =>
       (new ScheduleAlarmsBuilder()..update(updates)).build();
@@ -289,10 +290,11 @@ class ScheduleAlarmsBuilder
     implements Builder<ScheduleAlarms, ScheduleAlarmsBuilder> {
   _$ScheduleAlarms _$v;
 
-  ListBuilder<ScheduleAlarm> _alarms;
-  ListBuilder<ScheduleAlarm> get alarms =>
-      _$this._alarms ??= new ListBuilder<ScheduleAlarm>();
-  set alarms(ListBuilder<ScheduleAlarm> alarms) => _$this._alarms = alarms;
+  MapBuilder<String, ScheduleAlarm> _alarms;
+  MapBuilder<String, ScheduleAlarm> get alarms =>
+      _$this._alarms ??= new MapBuilder<String, ScheduleAlarm>();
+  set alarms(MapBuilder<String, ScheduleAlarm> alarms) =>
+      _$this._alarms = alarms;
 
   ScheduleAlarmsBuilder();
 

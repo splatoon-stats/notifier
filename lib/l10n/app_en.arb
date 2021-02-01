@@ -4,22 +4,73 @@
     "description": "The display name of this application."
   },
 
-  "alarms": "Alerms",
+  "alarm": "alarm",
+  "@alarm": {},
+  "alarms": "Alarms",
   "@alarms": {},
+  "nHourBefore": "{hour,plural, =1{1 hour before} other{{hour} hours before}}",
+  "@nHourBefore": {
+    "placeholders": {
+      "hour": {}
+    }
+  },
+  "nMinuteBefore": "{minute,plural, =1{1 minute before} other{{minute} minutes before}}",
+  "@nMinuteBefore": {
+    "placeholders": {
+      "minute": {}
+    }
+  },
+  "notificationTimings": "Notification timings",
+  "@notificationTimings": {},
+  "schedules": "Stages data",
+  "@schedules": {},
+  "toClose": "Close",
+  "@toClose": {},
+  "toSave": "Save",
+  "@toSave": {},
+  "toSelectAll": "Select all",
+  "@toSelectAll": {},
+  "toUnselectAll": "Unselect all",
+  "@toUnselectAll": {},
 
+  "titleCreateAlarm": "Create alarm",
+  "@titleCreateAlarm": {},
+
+  "modes": "Modes",
+  "@modes": {},
   "regularBattle": "Regular Battle",
   "@regularBattle": {},
   "rankedBattle": "Ranked Battle",
   "@rankedBattle": {},
   "leagueBattle": "League Battle",
   "@leagueBattle": {},
-  "schedules": "Stages data",
-  "@schedules": {},
+
+  "rules": "Rules",
+  "@rules": {},
+  "splatZones": "Splat Zones",
+  "@splatZones": {},
+  "towerControl": "Tower Control",
+  "@towerControl": {},
+  "rainmaker": "Rainmaker",
+  "@rainmaker": {},
+  "clamBlitz": "Clam Blitz",
+  "@clamBlitz": {},
+
   "stages": "Stages",
   "@stages": {},
 
+  "error": "Error",
+  "@error": {},
   "errorLoad": "Failed to load {name}.",
   "@errorLoad": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "errorSave": "Failed to save {name}.",
+  "@errorSave": {
     "placeholders": {
       "name": {
         "type": "String"

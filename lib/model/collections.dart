@@ -37,7 +37,7 @@ abstract class ScheduleAlarms
 
   ScheduleAlarms._();
 
-  BuiltList<ScheduleAlarm> get alarms;
+  BuiltMap<String, ScheduleAlarm> get alarms;
 
   Map<String, dynamic> toJson() {
     return serializers.serializeWith(ScheduleAlarms.serializer, this)

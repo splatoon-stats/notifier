@@ -7,21 +7,15 @@ class SchedulesPage extends StatefulWidget {
   _SchedulesPageState createState() => _SchedulesPageState();
 }
 
-class _SchedulesPageState extends State<SchedulesPage>
-    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
+class _SchedulesPageState extends State<SchedulesPage> with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   static const List<Color> _tabColors = <Color>[
     AppColors.regularBattle,
     AppColors.rankedBattle,
     AppColors.leagueBattle,
   ];
 
-  final Stream<Schedules> _schedulesStream = database
-      .reference()
-      .child('schedules')
-      .onValue
-      .map<Schedules>((Event event) {
-    final Map<dynamic, dynamic> json =
-        event.snapshot.value as Map<dynamic, dynamic>;
+  final Stream<Schedules> _schedulesStream = database.reference().child('/schedules').onValue.map<Schedules>((Event event) {
+    final Map<dynamic, dynamic> json = event.snapshot.value as Map<dynamic, dynamic>;
     return json == null ? null : Schedules.fromJson(json);
   });
 
@@ -128,8 +122,7 @@ class SchedulesWidget extends StatelessWidget {
       padding: scrollableBodyPadding,
       child: Column(
         children: <Widget>[
-          for (final Schedule schedule in schedules)
-            _buildSchedule(context, schedule),
+          for (final Schedule schedule in schedules) _buildSchedule(context, schedule),
         ].intersperseSpacing(const EdgeInsets.only(top: 30.0)),
       ),
     );
@@ -167,24 +160,7 @@ class SchedulesWidget extends StatelessWidget {
 
   Widget _buildStage(Stage stage) {
     return Flexible(
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: <Widget>[
-          StageImage(stage.image),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: DecoratedBox(
-                  decoration: const BoxDecoration(
-                    color: Colors.black87,
-                  ),
-                  child: Center(child: Text(stage.id.toString())),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+      child: StageWidget(stageId: stage.id),
       flex: 1,
     );
   }
